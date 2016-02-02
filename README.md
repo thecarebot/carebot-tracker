@@ -1,5 +1,7 @@
 # Carebot Tracker
 
+[![Build Status](https://travis-ci.org/thecarebot/carebot-tracker.svg?branch=master)](https://travis-ci.org/thecarebot/carebot-tracker)
+
 A tool for tracking analytics that matter.
 
 ## Using
