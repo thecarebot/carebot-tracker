@@ -30,4 +30,20 @@ Run `grunt watch` from the project root to track changes, automatically lint the
 
 Run `grunt` from the project root to lint the files and package them in `/dist`.
 
+### Testing
+
+Run `mocha` from the project root to run the test suite.
+
+To manually test while developing, start a simple server from the project
+root:
+
+```
+python -m SimpleHTTPServer 8000
+```
+
+And then load load http://localhost:8000/test/index.html
+
+This is less than ideal and should be replaced with an automated selenium
+test rig.
+
 

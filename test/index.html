@@ -7,7 +7,14 @@
     width: 50%;
     margin: 0px auto;
   }
+
+  #frame {
+    height: 400px;
+    width: 100%;
+    background: #f05b4e;
+  }
   </style>
+  <script type="text/javascript" src="../src/carebot-tracker.js"></script>
 </head>
 <body>
   <div id="container">
@@ -35,6 +42,11 @@
     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   </div>
 
+  <script type="text/javascript">
+  var tracker = new CarebotTracker.VisibilityTracker('frame', function(bucket) {
+    console.log("The user has seen the graphic for " + bucket);
+  });
+  </script>
 
 </body>
 </html>
