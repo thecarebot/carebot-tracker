@@ -24,6 +24,7 @@
     "grunt-jsdoc": "~0.5.6",
     "mocha": "~2.4",
     "nightwatch": "^0.8.15",
+    "selenium-standalone": "~4.9.0",
     "should": "~8.2"
   }
 }
