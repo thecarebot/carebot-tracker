@@ -26,6 +26,21 @@ The time buckets are:
 * More than 300 seconds: five-minute intervals (eg `5m`, `10m`...)
 
 #### Methods
+
+##### Constructor
+
+```
+var timer = new CarebotTracker.Timer();
+```
+
+An optional callback will be called on every new bucket:
+
+```
+var timer = new CarebotTracker.Timer(function(result) {
+  console.log(result.bucket, result.seconds);
+});
+```
+
 ##### `start`
 
 Starts the timer.
