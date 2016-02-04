@@ -55,8 +55,6 @@
             var totalTime = getSecondsSince(startTime) + previousTotalSeconds;
             var timeBucket = getTimeBucket(totalTime);
 
-            // console.log("Got time", getSecondsSince(startTime), totalTime);
-
             return {
                 bucket: timeBucket,
                 seconds: totalTime
@@ -103,10 +101,9 @@
         // Ensure a config object
         config = (config || {});
 
-
-        function onBucket() {
-            callback(this.lastBucket);
-        }
+        // function onBucket() {
+        //     callback(this.lastBucket);
+        // }
 
         function isElementInViewport(el) {
             // Adapted from http://stackoverflow.com/a/15203639/117014
@@ -118,39 +115,29 @@
             };
 
             // Return false if it's not in the viewport
-            if (rect.right < 0 || rect.bottom < 0
-                    || rect.left > vWidth || rect.top > vHeight) {
+            if (rect.right < 0 || rect.bottom < 0 ||
+                rect.left > vWidth || rect.top > vHeight) {
                 return false;
             }
 
             // Return true if any of its four corners are visible
             return (
-                  el.contains(efp(rect.left,  rect.top))
-              ||  el.contains(efp(rect.right, rect.top))
-              ||  el.contains(efp(rect.right, rect.bottom))
-              ||  el.contains(efp(rect.left,  rect.bottom))
+                el.contains(efp(rect.left,  rect.top)) ||
+                el.contains(efp(rect.right, rect.top)) ||
+                el.contains(efp(rect.right, rect.bottom)) ||
+                el.contains(efp(rect.left,  rect.bottom))
             );
         }
 
         function checkIfVisible () {
             var newVisibility = isElementInViewport(el);
-            console.log(isVisible, newVisibility);
 
             if (isVisible && !newVisibility) {
-                console.log("Became hidden");
                 timer.pause();
-                console.log(timer.check());
-                // The item has become invisible
-                // TODO
-                // Start the timer
             }
 
             if (!isVisible && newVisibility) {
-                console.log("Became visible");
-                console.log(this.timer);
                 timer.start();
-                // The item has become visible
-                // Stop the timer
             }
 
             isVisible = newVisibility;
