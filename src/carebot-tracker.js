@@ -5,7 +5,7 @@
 */
 
 /*globals define, attachEvent, addEventListener: true */
-/* global module */
+/* global module, console */
 
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
@@ -18,10 +18,19 @@
 })(function() {
     var lib = {};
 
-    lib.Timer = function() {
+    /**
+     * Timer
+     * @param {Function} callback Called every time a new time bucket is reached
+     *
+     * Interface:
+     *
+     */
+    lib.Timer = function(callback) {
         // From https://github.com/nprapps/elections16/blob/master/www/js/app.js#L298-L335
         var startTime;
         var previousTotalSeconds = 0;
+        var previousBucket;
+        var alerter;
 
         function getTimeBucket(seconds) {
             var minutes, timeBucket;
@@ -65,12 +74,25 @@
             return calculateTimeBucket(startTime);
         }
 
+        function reportBucket() {
+            var results = calculateTimeBucket(startTime);
+            if (results.bucket !== previousBucket) {
+                callback(results);
+                previousBucket = results.bucket;
+            }
+        }
+
         function start() {
             startTime = new Date();
+
+            if (callback) {
+                alerter = setInterval(reportBucket, 10000);
+            }
         }
 
         function pause() {
             previousTotalSeconds = getSecondsSince(startTime) + previousTotalSeconds;
+            clearInterval(alerter);
             startTime = undefined;
         }
 
@@ -96,14 +118,10 @@
         var isVisible = false;
         var timeout;
 
-        var timer = new lib.Timer();
+        var timer = new lib.Timer(callback);
 
         // Ensure a config object
         config = (config || {});
-
-        // function onBucket() {
-        //     callback(this.lastBucket);
-        // }
 
         function isElementInViewport(el) {
             // Adapted from http://stackoverflow.com/a/15203639/117014
@@ -165,9 +183,6 @@
             attachEvent('onscroll', handler);
             attachEvent('onresize', handler);
         }
-
-        // return {
-        // };
     };
 
     return lib;

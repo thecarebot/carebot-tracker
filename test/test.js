@@ -64,5 +64,12 @@ describe('Timer', function () {
       });
     });
 
+    it('alert on time buckets', function(done) {
+      var timer = new CarebotTracker.Timer(function(results) {
+        results.bucket.should.equal('10s');
+        done();
+      });
+      timer.start();
+    });
   });
 });
