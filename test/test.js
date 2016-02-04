@@ -48,5 +48,21 @@ describe('Timer', function () {
         done();
       });
     });
+
+    it('should be able to pause and resume', function(done) {
+      checkTimer(1000, function(timer) {
+        timer.check().seconds.should.equal(1);
+
+        // Restart and wait another 9 seconds
+        timer.start();
+        setTimeout(function() {
+          timer.pause();
+          timer.check().seconds.should.equal(10);
+          timer.check().bucket.should.equal('10s');
+          done();
+        }, 9000);
+      });
+    });
+
   });
 });
