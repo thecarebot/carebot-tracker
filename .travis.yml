@@ -1,1 +1,3 @@
 language: node_js
+notifications:
+  slack: nprdigital:wqFx1HUqFuEa6jgwJsqHTWQZ
