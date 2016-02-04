@@ -18,7 +18,11 @@
 })(function() {
     var lib = {};
 
-    lib.Timer = function() {
+    /**
+     * Timer
+     * @param {Function} callback Called every time a new time bucket is reached
+     */
+    lib.Timer = function(callback) {
         // From https://github.com/nprapps/elections16/blob/master/www/js/app.js#L298-L335
         var startTime;
         var previousTotalSeconds = 0;

@@ -4,14 +4,73 @@
 
 A tool for tracking analytics that matter.
 
-## Using
+## Using the Tracker
 
-Note that this is speculative -- the app is not yet functional.
-
+### Visibiltiy Tracker
 ```
 var tracker = new CarebotTracker.VisibilityTracker('element-id', function(bucket) {
   console.log("The user has seen the graphic for " + bucket);
 });
+```
+
+### Timer
+
+#### Time buckets
+
+The timer's special feature is that it returns times in the
+standard NPR time buckets as strings (in addition to a plain `seconds` count).
+
+The time buckets are:
+* From zero up to 59 seconds: 10 second intervals (eg `10s`, `20s`, `30s`...)
+* 60 up to 300 seconds: one-minute intervals (eg `1m`, `2m`...)
+* More than 300 seconds: five-minute intervals (eg `5m`, `10m`...)
+
+#### Methods
+##### `start`
+
+Starts the timer.
+
+```
+var timer = new CarebotTracker.Timer();
+timer.start();
+```
+
+##### `pause`
+
+Pauses the timer. Note that this does not zero out the timer value.
+
+```
+var timer = new CarebotTracker.Timer();
+timer.start();
+timer.pause();
+```
+
+##### `check`
+Gets the seconds elapsed and current time bucket
+
+```
+var timer = new CarebotTracker.Timer();
+timer.start();
+// wait 300 seconds
+console.log(timer.check());
+// prints { bucket: '5m', seconds: 300 }
+```
+
+#### Example
+
+```
+var timer = new CarebotTracker.Timer();
+timer.start();
+// wait 300 seconds
+timer.pause();
+
+console.log(timer.check());
+// prints { bucket: '5m', seconds: 300 }
+
+timer.start();
+// wait 60 seconds
+timer.check();
+// prints { bucket: '5m', seconds: 360 }
 ```
 
 ## Development
