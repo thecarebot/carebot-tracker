@@ -55,7 +55,12 @@
             var totalTime = getSecondsSince(startTime) + previousTotalSeconds;
             var timeBucket = getTimeBucket(totalTime);
 
-            return [timeBucket, totalTime];
+            // console.log("Got time", getSecondsSince(startTime), totalTime);
+
+            return {
+                bucket: timeBucket,
+                seconds: totalTime
+            };
         }
 
         function check() {
@@ -74,8 +79,7 @@
         return {
             start: start,
             pause: pause,
-            check: check,
-            getTimeBucket: getTimeBucket
+            check: check
         };
     }.bind(this);
 
