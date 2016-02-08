@@ -1,4 +1,4 @@
-/*! carebot-tracker - v0.1.0 - 2016-02-04 */
+/*! carebot-tracker - v0.1.0 - 2016-02-08 */
 /*
 * carebot-tracker.js is library that checks if an element is visible on the page
 * and reports it to pym.js.
@@ -6,7 +6,7 @@
 */
 
 /*globals define, attachEvent, addEventListener: true */
-/* global module, console */
+/* global module */
 
 (function(factory) {
     if (typeof define === 'function' && define.amd) {
@@ -119,37 +119,41 @@
         var isVisible = false;
         var timeout;
 
-        var timer = new lib.Timer();
+        var timer = new lib.Timer(callback);
 
         // Ensure a config object
         config = (config || {});
 
-        // function onBucket() {
-        //     callback(this.lastBucket);
-        // }
-
         function isElementInViewport(el) {
             // Adapted from http://stackoverflow.com/a/15203639/117014
+            //
+            // Returns true only if the WHOLE element is in the viewport
             var rect     = el.getBoundingClientRect();
             var vWidth   = window.innerWidth || document.documentElement.clientWidth;
             var vHeight  = window.innerHeight || document.documentElement.clientHeight;
-            var efp      = function(x, y) {
-                return document.elementFromPoint(x, y);
-            };
 
-            // Return false if it's not in the viewport
-            if (rect.right < 0 || rect.bottom < 0 ||
-                rect.left > vWidth || rect.top > vHeight) {
+            // Core tests: are all sides of the rectangle in the viewport?
+            var leftIsOffScreen = rect.left < 0;
+            var rightIsOffScreen = rect.right > vWidth;
+            var bottomIsOffScreen = rect.bottom > vHeight;
+            var topIsOffScreen = rect.top < 0;
+
+            // These are not necessary, but kept if we want to track partial visibility.
+            /*
+            var leftSideIsToRightOfWindow = rect.left > vWidth;
+            var rightSideIsToLeftOfWindow = rect.right < 0;
+            var topIsBelowVisibleWindow = rect.top > vHeight;
+            var botomIsAboveVisibleWindow = rect.bottom < 0;
+            */
+
+            if (leftIsOffScreen  ||
+                rightIsOffScreen ||
+                topIsOffScreen   ||
+                bottomIsOffScreen) {
                 return false;
             }
 
-            // Return true if any of its four corners are visible
-            return (
-                el.contains(efp(rect.left,  rect.top)) ||
-                el.contains(efp(rect.right, rect.top)) ||
-                el.contains(efp(rect.right, rect.bottom)) ||
-                el.contains(efp(rect.left,  rect.bottom))
-            );
+            return true;
         }
 
         function checkIfVisible () {
@@ -157,7 +161,6 @@
 
             if (isVisible && !newVisibility) {
                 timer.pause();
-                console.log(timer.check());
             }
 
             if (!isVisible && newVisibility) {
@@ -189,9 +192,6 @@
             attachEvent('onscroll', handler);
             attachEvent('onresize', handler);
         }
-
-        // return {
-        // };
     };
 
     return lib;
