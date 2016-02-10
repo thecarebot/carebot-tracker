@@ -7,6 +7,11 @@ A tool for tracking analytics that matter.
 ## Using the Tracker
 
 ### Visibiltiy Tracker
+
+This is the main tool in the Carebot Tracker right now. It records how long a
+viz has been fully on screen. After including `carebot-tracker.js` on a page,
+here's how you initailize the tracker:
+
 ```
 var tracker = new CarebotTracker.VisibilityTracker('element-id', function(bucket) {
   console.log("The user has seen the graphic for " + bucket);
@@ -14,6 +19,8 @@ var tracker = new CarebotTracker.VisibilityTracker('element-id', function(bucket
 ```
 
 ### Timer
+
+The timer is a utility class that works like a stopwatch.
 
 #### Time buckets
 
@@ -90,11 +97,13 @@ timer.check();
 
 ## Development
 
+Here's what you need to make Carebot Tracker better.
+
 ### Getting started
 
 You'll need node and npm to get started.
 
-After installing node, you can install the dependencies by running `node init`.
+After installing node, you can install the dependencies by running `npm install`.
 
 ### Developing
 
