@@ -191,6 +191,8 @@
             attachEvent('onscroll', handler);
             attachEvent('onresize', handler);
         }
+
+        checkIfVisible();
     };
 
     return lib;
