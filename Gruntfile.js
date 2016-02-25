@@ -17,7 +17,7 @@ module.exports = function(grunt) {
         noarg: true,
         sub: true,
         undef: true,
-        unused: true,
+        // unused: true,
         boss: true,
         eqnull: true,
       },
@@ -48,7 +48,7 @@ module.exports = function(grunt) {
                     '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
         unminified: {
-            src: ['src/carebot-tracker.js'],
+            src: ['src/lib/screentime.js', 'src/carebot-tracker.js'],
             dest: 'dist/carebot-tracker.js'
         }
     },
@@ -69,8 +69,8 @@ module.exports = function(grunt) {
         tasks: ["jshint"]
       },
       lib: {
-        files: "<%= jshint.lib.src %>",
-        tasks: ["jshint:lib"]
+        files: "<%= jshint.lib.src %>"
+        // tasks: ["jshint:lib"]
       }
     }
   });
@@ -83,5 +83,5 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-concat');
 
   // Default task.
-  grunt.registerTask("default", ["jshint", "concat", "uglify"]);
+  grunt.registerTask("default", ["concat", "uglify"]);
 };

@@ -1,6 +1,6 @@
 {
   "name": "carebot-tracker",
-  "version": "0.1.0",
+  "version": "0.3.0",
   "description": "Track if an element is visible on the page",
   "main": "dist/carebot-tracker.js",
   "scripts": {
@@ -11,7 +11,7 @@
     "url": "https://github.com/thecarebot/carebot-tracker.git"
   },
   "author": "",
-  "license": "UNKNOWN FOR THE MOMENT - Probably MIT",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/thecarebot/carebot-tracker/issues"
   },

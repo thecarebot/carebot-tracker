@@ -9,7 +9,7 @@ A tool for tracking analytics that matter.
 ### Visibiltiy Tracker
 
 This is the main tool in the Carebot Tracker right now. It records how long a
-viz has been fully on screen. After including `carebot-tracker.js` on a page,
+viz has been on screen. After including `carebot-tracker.js` on a page,
 here's how you initailize the tracker:
 
 ```
