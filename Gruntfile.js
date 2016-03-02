@@ -48,7 +48,7 @@ module.exports = function(grunt) {
                     '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
         unminified: {
-            src: ['src/lib/screentime.js', 'src/lib/scrolldepth.js', 'src/carebot-tracker.js'],
+            src: ['src/lib/screentime.js', 'src/carebot-tracker.js'],
             dest: 'dist/carebot-tracker.js'
         }
     },
@@ -59,7 +59,7 @@ module.exports = function(grunt) {
       },
       minified: {
         files: {
-          'dist/carebot-tracker.min.js': ['src/carebot-tracker.js']
+          'dist/carebot-tracker.min.js': ['dist/carebot-tracker.js']
         }
       }
     },

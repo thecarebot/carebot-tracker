@@ -100,8 +100,6 @@
      */
     lib.ScrollTracker = function(id, callback, config) {
         var WAIT_TO_ENSURE_SCROLLING_IS_DONE = 100;
-
-        console.log("Setting up scrollTracker", config);
         var elt = document.getElementById(id);
         var previousBucket = 0;
         var timeout;
