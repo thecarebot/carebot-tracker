@@ -17,8 +17,18 @@ var tracker = new CarebotTracker.VisibilityTracker('element-id', function(bucket
 });
 ```
 
-
 ### ScrollTracker
+
+The ScrollTracker measures how much of a given element is on the the page.
+
+```
+var tracker = new CarebotTracker.ScrollTracker('element-id', function(result) {
+  console.log(result);
+  pymParent.sendMessage('scroll-depth', result);
+  // Percents as a number: "10", "120"
+});
+```
+
 
 ### Timer
 

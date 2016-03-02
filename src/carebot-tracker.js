@@ -99,9 +99,12 @@
      * Tracks scroll depth
      */
     lib.ScrollTracker = function(id, callback, config) {
+        var WAIT_TO_ENSURE_SCROLLING_IS_DONE = 100;
+
         console.log("Setting up scrollTracker", config);
         var elt = document.getElementById(id);
         var previousBucket = 0;
+        var timeout;
 
         function getPageScroll() {
             var body = document.body;
@@ -180,20 +183,19 @@
         function trackDepth() {
             var percent = depthPercent();
             var bucket = percentBucket(percent);
-            //console.log(bucket, previousBucket);
             if (bucket > previousBucket) {
-                //console.log("Bucket is bigger");
                 previousBucket = bucket;
                 callback(bucket);
             }
-            //console.log(previousBucket, "PB");
         }
 
         window.addEventListener('scroll', function(event) {
-            trackDepth();
+            if (timeout) {
+                window.clearTimeout(timeout);
+            }
+            timeout = window.setTimeout(trackDepth, WAIT_TO_ENSURE_SCROLLING_IS_DONE);
         });
 
-        // trackDepth();
     };
 
     return lib;
