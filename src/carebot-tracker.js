@@ -210,6 +210,11 @@
     lib.ScrollTracker = function(id, callback, config) {
         var WAIT_TO_ENSURE_SCROLLING_IS_DONE = 100;
         var elt = document.getElementById(id);
+
+        if (!elt) {
+            return;
+        }
+
         var previousBucket = 0;
         var timeout;
 
