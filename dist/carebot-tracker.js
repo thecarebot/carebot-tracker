@@ -1,4 +1,4 @@
-/*! carebot-tracker - v0.5.0 - 2016-03-03 */
+/*! carebot-tracker - v0.5.0 - 2016-03-21 */
 /*
 * carebot-tracker.js is library that checks if an element is visible on the page
 * and reports it to pym.js.
@@ -93,6 +93,7 @@
 
         function start() {
             startTime = new Date();
+            reportBucket();
 
             if (callback) {
                 alerter = setInterval(reportBucket, 10000);

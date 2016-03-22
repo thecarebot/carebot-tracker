@@ -92,6 +92,7 @@
 
         function start() {
             startTime = new Date();
+            reportBucket();
 
             if (callback) {
                 alerter = setInterval(reportBucket, 10000);
