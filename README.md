@@ -8,14 +8,45 @@ A tool for tracking analytics that matter.
 
 ### Visibiltiy Tracker
 
-This is the main tool in the Carebot Tracker right now. It records how long a
-viz has been on screen. After including `carebot-tracker.js` on a page,
-here's how you initailize the tracker:
+The Visibility Tracker records how long an element has been on screen. After
+including `carebot-tracker.js` on a page, here's how you initailize the tracker:
 
 ```
 var tracker = new CarebotTracker.VisibilityTracker('element-id', function(bucket) {
   console.log("The user has seen the graphic for " + bucket);
 });
+```
+
+### ScrollTracker
+
+The ScrollTracker measures how much of a given element is on the the page.
+
+```
+var tracker = new CarebotTracker.ScrollTracker('element-id', function(result) {
+  console.log(result);
+  pymParent.sendMessage('scroll-depth', result);
+  // Percents as a number: "10", "120"
+});
+```
+
+### How to send the data to Google Analytics
+
+Every analytics platform and implementation is slightly different. Here's an
+example of how we send the data to GA:
+
+```
+<script type="text/javascript" src="carebot-tracker.min.js"></script>
+<script type="text/javascript">
+var tracker = new CarebotTracker.ScrollTracker('element-id', function(result) {
+  var eventData = {
+    'hitType': 'event',
+    'eventCategory': 'your-page-slug-here', // something to identify the story later
+    'eventAction': 'scroll-depth',
+    'eventLabel': result
+  };
+  ga('send', eventData); // Assumes GA has already been set up.
+});
+</script>
 ```
 
 ### Timer
@@ -93,7 +124,6 @@ timer.start();
 // wait 60 seconds
 timer.check();
 // prints { bucket: '5m', seconds: 360 }
-```
 
 ## Development
 

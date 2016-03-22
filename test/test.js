@@ -13,7 +13,9 @@ describe('Timer', function () {
     this.timeout(15000);
 
     function checkTimer(msWait, done) {
-      var timer = new CarebotTracker.Timer();
+      var timer = new CarebotTracker.Timer(function () {
+        // noop
+      });
       timer.start();
 
       setTimeout(function() {
@@ -23,9 +25,6 @@ describe('Timer', function () {
     }
 
     it('should handle very short times', function(done) {
-      var timer = new CarebotTracker.Timer();
-      timer.start();
-
       checkTimer(100, function(timer) {
         timer.check().seconds.should.equal(0);
         timer.check().bucket.should.equal('0s');
@@ -66,7 +65,7 @@ describe('Timer', function () {
 
     it('alert on time buckets', function(done) {
       var timer = new CarebotTracker.Timer(function(results) {
-        results.bucket.should.equal('10s');
+        results.bucket.should.equal('0s');
         done();
       });
       timer.start();
