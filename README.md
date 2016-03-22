@@ -29,6 +29,26 @@ var tracker = new CarebotTracker.ScrollTracker('element-id', function(result) {
 });
 ```
 
+### How to send the data to Google Analytics
+
+Every analytics platform and implementation is slightly different. Here's an
+example of how we send the data to GA:
+
+```
+<script type="text/javascript" src="carebot-tracker.min.js"></script>
+<script type="text/javascript">
+var tracker = new CarebotTracker.ScrollTracker('element-id', function(result) {
+  var eventData = {
+    'hitType': 'event',
+    'eventCategory': 'your-page-slug-here', // something to identify the story later
+    'eventAction': 'scroll-depth',
+    'eventLabel': result
+  };
+  ga('send', eventData); // Assumes GA has already been set up.
+});
+</script>
+```
+
 ### Timer
 
 The timer is a utility class that works like a stopwatch.
