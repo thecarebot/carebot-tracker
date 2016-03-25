@@ -19,13 +19,21 @@ var tracker = new CarebotTracker.VisibilityTracker('element-id', function(bucket
 
 ### ScrollTracker
 
-The ScrollTracker measures how much of a given element is on the the page.
+The ScrollTracker measures how much of a given element has been "read" (passed
+the bottom of the screen). As you scroll down, it'll record every 10% of an
+an element you read, as well as how long you've spent on the page so far.
+
+If you scroll down, then up, then down again, it'll re-record those percentages
+with the new time you hit them.
+
+Here's an example of how to add the tracker:
 
 ```
-var tracker = new CarebotTracker.ScrollTracker('element-id', function(result) {
-  console.log(result);
-  pymParent.sendMessage('scroll-depth', result);
-  // Percents as a number: "10", "120"
+var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, seconds) {
+  pymParent.sendMessage('scroll-depth', {
+    percent: percent,  // Percents as a number: "10", "120"
+    seconds: seconds
+  });
 });
 ```
 
@@ -37,12 +45,13 @@ example of how we send the data to GA:
 ```
 <script type="text/javascript" src="carebot-tracker.min.js"></script>
 <script type="text/javascript">
-var tracker = new CarebotTracker.ScrollTracker('element-id', function(result) {
+var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, seconds) {
   var eventData = {
     'hitType': 'event',
     'eventCategory': 'your-page-slug-here', // something to identify the story later
     'eventAction': 'scroll-depth',
-    'eventLabel': result
+    'eventLabel': result,
+    'eventValue': seconds
   };
   ga('send', eventData); // Assumes GA has already been set up.
 });

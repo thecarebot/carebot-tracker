@@ -21,9 +21,8 @@
 
     /**
      * Timer
-     * @param {Function} callback Called every time a new time bucket is reached
-     *
-     * Interface:
+     * @param {Function} callback Optional.
+     *                            Called every time a new time bucket is reached
      *
      */
     lib.Timer = function(callback) {
@@ -78,6 +77,10 @@
         }
 
         function reportBucket() {
+            if (!callback) {
+                return;
+            }
+
             var results = calculateTimeBucket(startTime);
             if (results.bucket !== previousBucket) {
                 // Don't report forever
@@ -216,7 +219,11 @@
             return;
         }
 
-        var previousBucket = 0;
+        // Start tracking the time on page.
+        var timer = new lib.Timer();
+        timer.start();
+
+        var previousBucket = -1;
         var timeout;
 
         function getPageScroll() {
@@ -297,8 +304,11 @@
             var percent = depthPercent();
             var bucket = percentBucket(percent);
             if (bucket > previousBucket) {
+                var seconds = timer.check().seconds;
+                callback(bucket, seconds);
+            } else {
+                // The user is scrolling back up.
                 previousBucket = bucket;
-                callback(bucket);
             }
         }
 
@@ -308,6 +318,8 @@
             }
             timeout = window.setTimeout(trackDepth, WAIT_TO_ENSURE_SCROLLING_IS_DONE);
         });
+
+        trackDepth();
 
     };
 
