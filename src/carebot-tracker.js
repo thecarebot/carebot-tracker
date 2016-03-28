@@ -214,6 +214,17 @@
     lib.ScrollTracker = function(id, callback, config) {
         var WAIT_TO_ENSURE_SCROLLING_IS_DONE = 100;
         var elt = document.getElementById(id);
+        var lastPosition = -1;
+        var ticking = false;
+
+        // Detect request animation frame
+        var requestAnimationFrame = window.requestAnimationFrame ||
+             window.webkitRequestAnimationFrame ||
+             window.mozRequestAnimationFrame ||
+             window.msRequestAnimationFrame ||
+             window.oRequestAnimationFrame ||
+             // IE Fallback, you can even fallback to onscroll
+             function(callback){ window.setTimeout(callback, WAIT_TO_ENSURE_SCROLLING_IS_DONE) };
 
         if (!elt) {
             return;
@@ -222,9 +233,7 @@
         // Start tracking the time on page.
         var timer = new lib.Timer();
         timer.start();
-
         var previousBucket = -1;
-        var timeout;
 
         function getPageScroll() {
             var body = document.body;
@@ -304,23 +313,35 @@
             var percent = depthPercent();
             var bucket = percentBucket(percent);
             if (bucket > previousBucket) {
-                var seconds = timer.check().seconds;
-                callback(bucket, seconds);
-            } else {
-                // The user is scrolling back up.
+                callback(bucket, timer.check().seconds);
                 previousBucket = bucket;
             }
         }
 
-        window.addEventListener('scroll', function(event) {
-            if (timeout) {
-                window.clearTimeout(timeout);
+        function onScroll() {
+            requestTick();
+        }
+
+        function requestTick() {
+            if (lastPosition == window.pageYOffset) {
+                return false;
+            } else {
+                lastPosition = window.pageYOffset;
             }
-            timeout = window.setTimeout(trackDepth, WAIT_TO_ENSURE_SCROLLING_IS_DONE);
-        });
 
-        trackDepth();
+            if(!ticking) {
+                requestAnimationFrame(update);
+                ticking = true;
+            }
+        }
 
+        function update() {
+            trackDepth();
+            ticking = false;
+        }
+
+        // only listen for scroll events
+        window.addEventListener('scroll', onScroll, false);
     };
 
     return lib;
