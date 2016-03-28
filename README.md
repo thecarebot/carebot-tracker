@@ -6,7 +6,7 @@ A tool for tracking analytics that matter.
 
 ## Using the Tracker
 
-### Visibiltiy Tracker
+### Visibility Tracker
 
 The Visibility Tracker records how long an element has been on screen. After
 including `carebot-tracker.js` on a page, here's how you initailize the tracker:
@@ -133,6 +133,7 @@ timer.start();
 // wait 60 seconds
 timer.check();
 // prints { bucket: '5m', seconds: 360 }
+```
 
 ## Development
 
@@ -156,8 +157,7 @@ Run `grunt` from the project root to lint the files and package them in `/dist`.
 
 Run `mocha` from the project root to run the test suite.
 
-To manually test while developing, start a simple server from the project
-root:
+To manually test while developing, start a simple server from the project root:
 
 ```
 python -m SimpleHTTPServer 8000
@@ -165,7 +165,4 @@ python -m SimpleHTTPServer 8000
 
 And then load load http://localhost:8000/test/index.html
 
-This is less than ideal and should be replaced with an automated selenium
-test rig.
-
-
+This is less than ideal and should be replaced with an automated selenium test rig.
