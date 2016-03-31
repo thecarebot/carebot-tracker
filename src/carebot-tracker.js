@@ -314,12 +314,9 @@
             var bucket = percentBucket(percent);
             if (bucket > previousBucket) {
                 callback(bucket, timer.check().seconds);
-                previousBucket = bucket;
             }
-        }
 
-        function onScroll() {
-            requestTick();
+            previousBucket = bucket;
         }
 
         function requestTick() {
@@ -341,7 +338,7 @@
         }
 
         // only listen for scroll events
-        window.addEventListener('scroll', onScroll, false);
+        window.addEventListener('scroll', requestTick, false);
     };
 
     return lib;
