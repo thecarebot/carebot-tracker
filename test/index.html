@@ -49,6 +49,9 @@
   var tracker = new CarebotTracker.VisibilityTracker('frame', function(bucket) {
     console.log("The user has seen the graphic for", bucket);
   });
+  var scrollTracker = new CarebotTracker.ScrollTracker('container', function(percent, seconds) {
+    console.log(percent, seconds);
+  });
   </script>
 
 </body>
