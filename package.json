@@ -1,6 +1,6 @@
 {
   "name": "carebot-tracker",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Track if an element is visible on the page",
   "main": "dist/carebot-tracker.js",
   "scripts": {

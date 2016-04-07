@@ -1,3 +1,4 @@
+/*! carebot-tracker - v0.8.0 - 2016-04-07 */
 /*! carebot-tracker - v0.7.0 - 2016-04-06 */
 /*
 * carebot-tracker.js is library that checks if an element is visible on the page
@@ -145,23 +146,30 @@
             var vHeight  = window.innerHeight || document.documentElement.clientHeight;
 
             // Core tests: are all sides of the rectangle in the viewport?
+            /*
             var leftIsOffScreen = rect.left < 0;
             var rightIsOffScreen = rect.right > vWidth;
             var bottomIsOffScreen = rect.bottom > vHeight;
             var topIsOffScreen = rect.top < 0;
 
-            // These are not necessary, but kept if we want to track partial visibility.
-            /*
-            var leftSideIsToRightOfWindow = rect.left > vWidth;
-            var rightSideIsToLeftOfWindow = rect.right < 0;
-            var topIsBelowVisibleWindow = rect.top > vHeight;
-            var botomIsAboveVisibleWindow = rect.bottom < 0;
-            */
-
             if (leftIsOffScreen  ||
                 rightIsOffScreen ||
                 topIsOffScreen   ||
                 bottomIsOffScreen) {
+                return false;
+            }
+            */
+
+            // Track partial visibility.
+            var leftSideIsToRightOfWindow = rect.left > vWidth;
+            var rightSideIsToLeftOfWindow = rect.right < 0;
+            var topIsBelowVisibleWindow = rect.top > vHeight;
+            var botomIsAboveVisibleWindow = rect.bottom < 0;
+
+            if (leftSideIsToRightOfWindow  ||
+                rightSideIsToLeftOfWindow ||
+                topIsBelowVisibleWindow   ||
+                botomIsAboveVisibleWindow) {
                 return false;
             }
 
@@ -179,6 +187,7 @@
                 timer.start();
             }
 
+            console.log("Checked visibility", newVisibility);
             isVisible = newVisibility;
             return newVisibility;
         }
@@ -225,7 +234,7 @@
              window.msRequestAnimationFrame ||
              window.oRequestAnimationFrame ||
              // IE Fallback, you can even fallback to onscroll
-             function(callback){ window.setTimeout(callback, WAIT_TO_ENSURE_SCROLLING_IS_DONE) };
+             function(callback){ window.setTimeout(callback, WAIT_TO_ENSURE_SCROLLING_IS_DONE); };
 
         if (!elt) {
             return;
@@ -320,6 +329,11 @@
             previousBucket = bucket;
         }
 
+        function update() {
+            trackDepth();
+            ticking = false;
+        }
+
         function requestTick() {
             if (lastPosition == window.pageYOffset) {
                 return false;
@@ -331,11 +345,6 @@
                 requestAnimationFrame(update);
                 ticking = true;
             }
-        }
-
-        function update() {
-            trackDepth();
-            ticking = false;
         }
 
         // only listen for scroll events
