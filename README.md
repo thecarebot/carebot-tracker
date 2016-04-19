@@ -86,10 +86,8 @@ var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, s
 ```
 
 ### How to send the data to Pym
-This is a rare edge case (we set it up to meet NPR's specific implementation). 
-If you're using [pym](https://github.com/nprapps/pym.js)_and) your graphic uses a 
-different analytics property than the parent page, you can pass in the bucket 
-values to the pym child using code like this: 
+
+This is a rare edge case (we set it up to meet NPR's specific implementation). If you're using [pym](https://github.com/nprapps/pym.js) your graphic uses a different analytics property than the parent page. You can pass the bucket values to the pym child using this code: 
 
 ```
 var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, seconds) {
