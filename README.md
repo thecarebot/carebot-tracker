@@ -1,3 +1,15 @@
+[Carebot](http://thecarebot.github.io) is an effort in thinking about alternative ways to look at analytics for journalism: both the measures and indicators used to understand story impact, and the way which analytics data is used in the newsroom. 
+
+##Quick Start Guide
+To get Carebot up and running you will need to:
+
+1. Add the [Carebot Tracker](#carebot-tracker) to your content.
+2. Set up the [Carebot Slackbot](https://github.com/thecarebot/carebot#carebot-the-slackbot) to report data through notifications.
+
+Note: You will need a [Google Analytics](http://analytics.google.com) account. **You can implement the tracker independently** and use other reporting methods (including accessing the Google Analytics dashboard directly). Otherwise, you will also need a [Slack](http://slack.com/create) account for the Slackbot.
+
+***
+
 # Carebot Tracker
 
 [![Build Status](https://travis-ci.org/thecarebot/carebot-tracker.svg?branch=master)](https://travis-ci.org/thecarebot/carebot-tracker)
@@ -203,3 +215,17 @@ If you're using jquery on the page, these plugins by Rob Flaherty could simplify
 * [Scroll Depth](http://scrolldepth.parsnip.io/)
 * [Riveted](http://riveted.parsnip.io/) for measuring active time on site
 * [Screentime](http://screentime.parsnip.io/) for measuring time an element is ons creen
+
+
+***
+
+##Contribute to the project
+Here are a few ways you can help make Carebot more useful:
+
+1. Fix bugs in the Carebot [tracker](https://github.com/thecarebot/carebot-tracker) and [slackbot](https://github.com/thecarebot/carebot).
+2. Report new [new issues](https://github.com/thecarebot/carebot/issues/new) you find.
+3. Contribute new metrics to the Carebot tracker via pull request.
+4. Contribute new notification methods to Carebot via pull request (SMS, Hipchat, etc).
+5. Add to or edit [this documentation](https://github.com/thecarebot/carebot-tracker/blob/master/README.md).
+6. [Tell people](http://twitter.com) about Carebot and how more meaningful analytics can help them.
+
