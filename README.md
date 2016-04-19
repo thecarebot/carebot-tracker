@@ -14,15 +14,13 @@ Note: You will need a [Google Analytics](http://analytics.google.com) account. *
 
 [![Build Status](https://travis-ci.org/thecarebot/carebot-tracker.svg?branch=master)](https://travis-ci.org/thecarebot/carebot-tracker)
 
-A tool for tracking analytics that matter.
+Current default measures tracked: Visibility and Scroll Depth.
 
 ## Using the Tracker
 
 ### Quick setup
 
-If you are using Google Analytics, here's how to include the carebot tracker and start tracking 
-how much of an article someone has read. Put this code after the Google Analytics code block.
-You'll need to change `element-id` to match the CSS ID of the article on your page, and 
+1. If you are using Google Analytics (GA), include the carebot tracker code after the GA code block in your page. 
 
 ```
 <script type="text/javascript" src="carebot-tracker.min.js"></script>
@@ -39,6 +37,9 @@ var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, s
 });
 </script>
 ```
+2. Change `element-id` to match the CSS ID of the element containing the story on your page. 
+
+It will usually take about 4 hours for traffic data to start showing on your GA dashboard.
 
 Here are more details on the two trackers available and how to use them:
 
