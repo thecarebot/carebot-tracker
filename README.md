@@ -1,24 +1,12 @@
-[Carebot](http://thecarebot.github.io) is an effort in thinking about alternative ways to look at analytics for journalism: both the measures and indicators used to understand story impact, and the way which analytics data is used in the newsroom. 
-
-##Quick Start Guide
-To get Carebot up and running you will need to:
-
-1. Add the [Carebot Tracker](#carebot-tracker) to your content.
-2. Set up the [Carebot Slackbot](https://github.com/thecarebot/carebot#carebot-the-slackbot) to report data through notifications.
-
-Note: You will need a [Google Analytics](http://analytics.google.com) account. **You can implement the tracker independently** and use other reporting methods (including accessing the Google Analytics dashboard directly). Otherwise, you will also need a [Slack](http://slack.com/create) account for the Slackbot.
-
-***
-
 # Carebot Tracker
 
 [![Build Status](https://travis-ci.org/thecarebot/carebot-tracker.svg?branch=master)](https://travis-ci.org/thecarebot/carebot-tracker)
 
-A tool for tracking analytics that matter.
+[Carebot](http://thecarebot.github.io) is an effort in thinking about alternative ways to look at analytics for journalism: both the measures and indicators used to understand story impact, and the way which analytics data is used in the newsroom. 
 
-## Using the Tracker
+This repository has the trackers you'll put on your website to measure interactions with your articles. You might also want to run the [Carebot Slackbot](https://github.com/thecarebot/carebot#carebot-the-slackbot) to report data through notifications.
 
-### Quick setup
+## Quickstart
 
 If you are using Google Analytics, here's how to include the carebot tracker and start tracking 
 how much of an article someone has read. Put this code after the Google Analytics code block.
@@ -39,7 +27,6 @@ var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, s
 });
 </script>
 ```
-
 Here are more details on the two trackers available and how to use them:
 
 ### Time on Screen Tracker
@@ -60,6 +47,8 @@ var tracker = new CarebotTracker.VisibilityTracker('element-id', function(bucket
 });
 </script>
 ```
+
+## The trackers
 
 ### Scroll Depth Tracker
 
@@ -100,12 +89,12 @@ console.log("
 });
 ```
 
-## Timer
+### Timer
 
 The timer is a utility class that works like a stopwatch.
 You probably won't need to use it directly unless you're building a new tracker. 
 
-### Time buckets
+#### Time buckets
 
 The timer's special feature is that it returns times in the
 standard NPR time buckets as strings (in addition to a plain `seconds` count).
@@ -115,9 +104,9 @@ The time buckets are:
 * 60 up to 300 seconds: one-minute intervals (eg `1m`, `2m`...)
 * More than 300 seconds: five-minute intervals (eg `5m`, `10m`...)
 
-### Methods
+#### Methods
 
-#### Constructor
+##### Constructor
 ```
 var timer = new CarebotTracker.Timer();
 ```
@@ -130,7 +119,7 @@ var timer = new CarebotTracker.Timer(function(result) {
 });
 ```
 
-#### `start`
+##### `start`
 
 Starts the timer.
 
@@ -139,7 +128,7 @@ var timer = new CarebotTracker.Timer();
 timer.start();
 ```
 
-#### `pause`
+##### `pause`
 
 Pauses the timer. Note that this does not zero out the timer value.
 
@@ -149,7 +138,7 @@ timer.start();
 timer.pause();
 ```
 
-#### `check`
+##### `check`
 Gets the seconds elapsed and current time bucket
 
 ```
@@ -160,7 +149,7 @@ console.log(timer.check());
 // prints { bucket: '5m', seconds: 300 }
 ```
 
-### Example
+#### Example
 
 ```
 var timer = new CarebotTracker.Timer();
@@ -214,12 +203,11 @@ This is less than ideal and should be replaced with an automated selenium test r
 If you're using jquery on the page, these plugins by Rob Flaherty could simplify your life and can act as replacements for pym: 
 * [Scroll Depth](http://scrolldepth.parsnip.io/)
 * [Riveted](http://riveted.parsnip.io/) for measuring active time on site
-* [Screentime](http://screentime.parsnip.io/) for measuring time an element is ons creen
-
+* [Screentime](http://screentime.parsnip.io/) for measuring time an element is on screen
 
 ***
 
-##Contribute to the project
+## Contribute to the project
 Here are a few ways you can help make Carebot more useful:
 
 1. Fix bugs in the Carebot [tracker](https://github.com/thecarebot/carebot-tracker) and [slackbot](https://github.com/thecarebot/carebot).
