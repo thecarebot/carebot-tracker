@@ -6,35 +6,54 @@ A tool for tracking analytics that matter.
 
 ## Using the Tracker
 
-### Visibility Tracker
-
-The Visibility Tracker records how long an element has been on screen. After
-including `carebot-tracker.js` on a page, here's how you initailize the tracker:
+Include the javascript on the page (in the head or after you initialize google analytics) to get started: 
 
 ```
+<script type="text/javascript" src="carebot-tracker.min.js"></script>
+```
+
+After including the script, you'll have to set up one of the trackers
+
+### Time on Screen Tracker
+
+The Visibility Tracker records how long an element is visible on screen. 
+It reports the time in standard buckets: 
+* From zero up to 59 seconds: 10 second intervals (eg `10s`, `20s`, `30s`...)
+* 60 up to 300 seconds: one-minute intervals (eg `1m`, `2m`...)
+* More than 300 seconds: five-minute intervals (eg `5m`, `10m`...)
+
+Here's how to setup this tracker:
+
+```
+<script type="text/javascript" src="carebot-tracker.min.js"></script>
+<script type="text/javascript">
 var tracker = new CarebotTracker.VisibilityTracker('element-id', function(bucket) {
-  console.log("The user has seen the graphic for " + bucket);
+  console.log("The user has seen the graphic for " + bucket); // eg "10s", "2m"
 });
+</script>
 ```
 
 ### ScrollTracker
 
 The ScrollTracker measures how much of a given element has been "read" (passed
 the bottom of the screen). As you scroll down, it'll record every 10% of an
-an element you read, as well as how long you've spent on the page so far.
+an element you read, as well as how long you've spent on the page so far in seconds.
 
 If you scroll down, then up, then down again, it'll re-record those percentages
 with the new time you hit them.
 
+Replace `element-id` with the ID of the element you want measure scroll depth for.
+Usually, this is the ID of the main article on the page. 
+
 Here's an example of how to add the tracker:
 
 ```
+<script type="text/javascript" src="carebot-tracker.min.js"></script>
+<script type="text/javascript">
 var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, seconds) {
-  pymParent.sendMessage('scroll-depth', {
-    percent: percent,  // Percents as a number: "10", "120"
-    seconds: seconds
-  });
+  console.log("The user has gone", percent, "percent down the page after", seconds, "seconds");
 });
+</script>
 ```
 
 ### How to send the data to Google Analytics
@@ -50,7 +69,7 @@ var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, s
     'hitType': 'event',
     'eventCategory': 'your-page-slug-here', // something to identify the story later
     'eventAction': 'scroll-depth',
-    'eventLabel': result,
+    'eventLabel': percent,
     'eventValue': seconds
   };
   ga('send', eventData); // Assumes GA has already been set up.
@@ -58,11 +77,28 @@ var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, s
 </script>
 ```
 
-### Timer
+### How to send the data to Pym
+This is a rare edge case (we set it up to meet NPR's specific implementation). 
+If you're using [pym](https://github.com/nprapps/pym.js)_and) your graphic uses a 
+different analytics property than the parent page, you can pass in the bucket 
+values to the pym child using code like this: 
+
+```
+var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, seconds) {
+console.log("
+  pymParent.sendMessage('scroll-depth', {
+    percent: percent,  // Percents as a number: "10", "120"
+    seconds: seconds
+  });
+});
+```
+
+## Timer
 
 The timer is a utility class that works like a stopwatch.
+You probably won't need to use it directly unless you're building a new tracker. 
 
-#### Time buckets
+### Time buckets
 
 The timer's special feature is that it returns times in the
 standard NPR time buckets as strings (in addition to a plain `seconds` count).
@@ -72,10 +108,9 @@ The time buckets are:
 * 60 up to 300 seconds: one-minute intervals (eg `1m`, `2m`...)
 * More than 300 seconds: five-minute intervals (eg `5m`, `10m`...)
 
-#### Methods
+### Methods
 
-##### Constructor
-
+#### Constructor
 ```
 var timer = new CarebotTracker.Timer();
 ```
@@ -88,7 +123,7 @@ var timer = new CarebotTracker.Timer(function(result) {
 });
 ```
 
-##### `start`
+#### `start`
 
 Starts the timer.
 
@@ -97,7 +132,7 @@ var timer = new CarebotTracker.Timer();
 timer.start();
 ```
 
-##### `pause`
+#### `pause`
 
 Pauses the timer. Note that this does not zero out the timer value.
 
@@ -107,7 +142,7 @@ timer.start();
 timer.pause();
 ```
 
-##### `check`
+#### `check`
 Gets the seconds elapsed and current time bucket
 
 ```
@@ -118,7 +153,7 @@ console.log(timer.check());
 // prints { bucket: '5m', seconds: 300 }
 ```
 
-#### Example
+### Example
 
 ```
 var timer = new CarebotTracker.Timer();
@@ -166,3 +201,10 @@ python -m SimpleHTTPServer 8000
 And then load load http://localhost:8000/test/index.html
 
 This is less than ideal and should be replaced with an automated selenium test rig.
+
+## Alternatives
+
+If you're using jquery on the page, these plugins by Rob Flaherty could simplify your life and can act as replacements for pym: 
+* [Scroll Depth](http://scrolldepth.parsnip.io/)
+* [Riveted](http://riveted.parsnip.io/) for measuring active time on site
+* [Screentime](http://screentime.parsnip.io/) for measuring time an element is ons creen
