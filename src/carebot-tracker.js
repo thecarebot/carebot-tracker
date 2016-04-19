@@ -40,8 +40,8 @@
                 var tensOfSeconds = Math.floor(seconds / 10) * 10;
                 timeBucket = tensOfSeconds.toString() + 's';
             } else if (seconds >=60 && seconds < 300) {
-                minutes = Math.floor(seconds / 60);
-                timeBucket = minutes.toString() + 'm';
+                seconds = Math.floor(seconds / 30) * 30;
+                timeBucket = seconds.toString() + 's';
             } else {
                 minutes = Math.floor(seconds / 60);
                 var fivesOfMinutes = Math.floor(minutes / 5) * 5;

@@ -9,8 +9,8 @@ var CarebotTracker = require('../src/carebot-tracker');
 describe('Timer', function () {
   describe('startTimer', function() {
 
-    // Wait up to 15 seconds:
-    this.timeout(15000);
+    // Wait up to 45 seconds:
+    this.timeout(45000);
 
     function checkTimer(msWait, done) {
       var timer = new CarebotTracker.Timer(function () {
@@ -44,6 +44,14 @@ describe('Timer', function () {
       checkTimer(10000, function(timer) {
         timer.check().seconds.should.equal(10);
         timer.check().bucket.should.equal('10s');
+        done();
+      });
+    });
+
+    it('should record 35 seconds', function(done) {
+      checkTimer(35001, function(timer) {
+        timer.check().seconds.should.equal(35);
+        timer.check().bucket.should.equal('30s');
         done();
       });
     });
