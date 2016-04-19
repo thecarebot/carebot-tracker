@@ -6,13 +6,29 @@ A tool for tracking analytics that matter.
 
 ## Using the Tracker
 
-Include the javascript on the page (in the head or after you initialize google analytics) to get started: 
+### Quick setup
+
+If you are using Google Analytics, here's how to include the carebot tracker and start tracking 
+how much of an article someone has read. Put this code after the Google Analytics code block.
+You'll need to change `element-id` to match the CSS ID of the article on your page, and 
 
 ```
 <script type="text/javascript" src="carebot-tracker.min.js"></script>
+<script type="text/javascript">
+var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, seconds) {
+  var eventData = {
+    'hitType': 'event',
+    'eventCategory': 'your-page-slug-here', // something to identify the story later
+    'eventAction': 'scroll-depth',
+    'eventLabel': percent,
+    'eventValue': seconds
+  };
+  ga('send', eventData); // Assumes GA has already been set up.
+});
+</script>
 ```
 
-After including the script, you'll have to set up one of the trackers
+Here are more details on the two trackers available and how to use them:
 
 ### Time on Screen Tracker
 
@@ -33,7 +49,7 @@ var tracker = new CarebotTracker.VisibilityTracker('element-id', function(bucket
 </script>
 ```
 
-### ScrollTracker
+### Scroll Depth Tracker
 
 The ScrollTracker measures how much of a given element has been "read" (passed
 the bottom of the screen). As you scroll down, it'll record every 10% of an
@@ -52,27 +68,6 @@ Here's an example of how to add the tracker:
 <script type="text/javascript">
 var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, seconds) {
   console.log("The user has gone", percent, "percent down the page after", seconds, "seconds");
-});
-</script>
-```
-
-### How to send the data to Google Analytics
-
-Every analytics platform and implementation is slightly different. Here's an
-example of how we send the data to GA:
-
-```
-<script type="text/javascript" src="carebot-tracker.min.js"></script>
-<script type="text/javascript">
-var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, seconds) {
-  var eventData = {
-    'hitType': 'event',
-    'eventCategory': 'your-page-slug-here', // something to identify the story later
-    'eventAction': 'scroll-depth',
-    'eventLabel': percent,
-    'eventValue': seconds
-  };
-  ga('send', eventData); // Assumes GA has already been set up.
 });
 </script>
 ```
