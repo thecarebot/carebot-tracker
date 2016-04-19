@@ -215,3 +215,17 @@ If you're using jquery on the page, these plugins by Rob Flaherty could simplify
 * [Scroll Depth](http://scrolldepth.parsnip.io/)
 * [Riveted](http://riveted.parsnip.io/) for measuring active time on site
 * [Screentime](http://screentime.parsnip.io/) for measuring time an element is ons creen
+
+
+***
+
+##Contribute to the project
+Here are a few ways you can help make Carebot more useful:
+
+1. Fix bugs in the Carebot [tracker](https://github.com/thecarebot/carebot-tracker) and [slackbot](https://github.com/thecarebot/carebot).
+2. Report new [new issues](https://github.com/thecarebot/carebot/issues/new) you find.
+3. Contribute new metrics to the Carebot tracker via pull request.
+4. Contribute new notification methods to Carebot via pull request (SMS, Hipchat, etc).
+5. Add to or edit [this documentation](https://github.com/thecarebot/carebot-tracker/blob/master/README.md).
+6. [Tell people](http://twitter.com) about Carebot and how more meaningful analytics can help them.
+
