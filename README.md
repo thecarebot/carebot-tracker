@@ -6,7 +6,7 @@ A tool for tracking analytics that matter.
 
 ## Using the Tracker
 
-Include the javascript on the page to start using Carebot: 
+Include the javascript on the page (in the head or after you initialize google analytics) to get started: 
 
 ```
 <script type="text/javascript" src="carebot-tracker.min.js"></script>
@@ -22,7 +22,7 @@ It reports the time in standard buckets:
 * 60 up to 300 seconds: one-minute intervals (eg `1m`, `2m`...)
 * More than 300 seconds: five-minute intervals (eg `5m`, `10m`...)
 
-Here's how to setup this tracker: 
+Here's how to setup this tracker:
 
 ```
 <script type="text/javascript" src="carebot-tracker.min.js"></script>
@@ -41,6 +41,9 @@ an element you read, as well as how long you've spent on the page so far in seco
 
 If you scroll down, then up, then down again, it'll re-record those percentages
 with the new time you hit them.
+
+Replace `element-id` with the ID of the element you want measure scroll depth for.
+Usually, this is the ID of the main article on the page. 
 
 Here's an example of how to add the tracker:
 
@@ -74,7 +77,6 @@ var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, s
 </script>
 ```
 
-
 ### How to send the data to Pym
 This is a rare edge case (we set it up to meet NPR's specific implementation). 
 If you're using [pym](https://github.com/nprapps/pym.js)_and) your graphic uses a 
@@ -90,7 +92,6 @@ console.log("
   });
 });
 ```
-
 
 ## Timer
 
