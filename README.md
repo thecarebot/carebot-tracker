@@ -27,6 +27,9 @@ var tracker = new CarebotTracker.ScrollTracker('element-id', function(percent, s
 });
 </script>
 ```
+
+## The trackers
+
 Here are more details on the two trackers available and how to use them:
 
 ### Time on Screen Tracker
@@ -47,8 +50,6 @@ var tracker = new CarebotTracker.VisibilityTracker('element-id', function(bucket
 });
 </script>
 ```
-
-## The trackers
 
 ### Scroll Depth Tracker
 
