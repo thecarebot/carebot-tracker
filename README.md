@@ -10,7 +10,7 @@ This repository has the trackers you'll put on your website to measure interacti
 
 If you are using Google Analytics, here's how to include the carebot tracker and start tracking 
 how much of an article someone has read. Put this code after the Google Analytics code block.
-You'll need to change `element-id` to match the CSS ID of the article on your page, and 
+You'll need to change `element-id` to match the CSS ID of the article on your page. 
 
 ```
 <script type="text/javascript" src="carebot-tracker.min.js"></script>
